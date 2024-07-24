@@ -1,118 +1,94 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {StyleSheet} from 'react-native';
+import HomeScreen from './src/screen/Home';
+import BeanDetailsScreen from './src/screen/BeanDetails';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Path, Svg} from 'react-native-svg';
+import HomeIcon from './src/assets/icons/HomeIcon';
+import CartScreen from './src/screen/Cart';
+import Bag2Icon from './src/assets/icons/Bag2Icon';
+import FavoritesScreen from './src/screen/Favorites';
+import OrderHistoryScreen from './src/screen/OrderHistory';
+import HeartIcon from './src/assets/icons/HeartIcon';
+import NotificationIcon from './src/assets/icons/NotificationIcon';
+import {theme} from './src/common/theme';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const Tab = createBottomTabNavigator();
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarActiveTintColor: theme.button.orange,
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: theme.color.background,
+            borderColor: theme.color.background,
+          },
+        }}>
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({color, size}) => {
+              return (
+                <Svg height="24px" width="24px">
+                  <HomeIcon color={color} />
+                </Svg>
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Cart"
+          component={CartScreen}
+          options={{
+            tabBarLabel: 'Cart',
+            tabBarIcon: ({color, size}) => {
+              return (
+                <Svg height="24px" width="24px">
+                  <Bag2Icon color={color} />
+                </Svg>
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Favorites"
+          component={FavoritesScreen}
+          options={{
+            tabBarLabel: 'Favorites',
+            tabBarIcon: ({color, size}) => {
+              return (
+                <Svg height="24px" width="24px">
+                  <HeartIcon color={color} />
+                </Svg>
+              );
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Order History"
+          component={OrderHistoryScreen}
+          options={{
+            tabBarLabel: 'Order',
+            tabBarIcon: ({color, size}) => {
+              return (
+                <Svg height="24px" width="24px">
+                  <NotificationIcon color={color} />
+                </Svg>
+              );
+            },
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+const styles = StyleSheet.create({});
 
 export default App;

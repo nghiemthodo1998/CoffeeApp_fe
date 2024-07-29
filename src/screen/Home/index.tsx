@@ -17,6 +17,7 @@ import {theme} from '../../common/theme.ts';
 import HomeItem from '../../components/FlatListItem/HomeItem/index.tsx';
 import BeansData from '../../data/BeansData.ts';
 import EmptyItem from '../../components/FlatListItem/EmptyItem/index.tsx';
+import HeaderScreen from '../../components/HeaderScreen/index.tsx';
 
 const HomeScreen: FC<HomeScreenProps> = props => {
   const {
@@ -34,22 +35,7 @@ const HomeScreen: FC<HomeScreenProps> = props => {
   return (
     <View style={styles.homeWrapper}>
       <ScrollView style={styles.homeContainer}>
-        <View style={styles.stackWrapper}>
-          <LinearGradient
-            colors={['#21262E', '#21262E00']}
-            style={styles.windowWrapper}>
-            <Svg height="14px" width="14px">
-              <Window />
-            </Svg>
-          </LinearGradient>
-          <LinearGradient
-            colors={['#21262E', '#21262E00']}
-            style={styles.windowWrapper}>
-            <Svg height="14px" width="14px">
-              <Window />
-            </Svg>
-          </LinearGradient>
-        </View>
+        <HeaderScreen />
         <Text style={styles.textSearch}>Find the best{`\n`}coffee for you</Text>
         <View style={styles.inputSearchWrapper}>
           <View style={styles.inputSearchContainer}>

@@ -14,10 +14,14 @@ import Plus from '../../../assets/icons/Plus.tsx';
 import StarIcon from '../../../assets/icons/StarIcon.tsx';
 
 const HomeItem: FC<HomeItemProps> = props => {
-  const {data, isShowRating = false} = useHomeItem(props);
-  const price = data.prices[data.prices.length - 1];
+  const {
+    data,
+    price,
+    isShowRating = false,
+    handleNavigateDetail,
+  } = useHomeItem(props);
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={handleNavigateDetail}>
       <LinearGradient
         style={styles.homeItemWrapper}
         colors={['#252A32', '#262B3300']}>

@@ -12,8 +12,8 @@ export type ProductType = {
   name: string;
   description: string;
   roasted: string;
-  imagelink_square?: ImageProps;
-  imagelink_portrait?: ImageProps;
+  imagelink_square: ImageProps;
+  imagelink_portrait: ImageProps;
   ingredients: string;
   special_ingredient: string;
   prices: PriceProductType[];
@@ -26,5 +26,5 @@ export type ProductType = {
 
 export type CartType = {
   id: string;
-  prices: PriceProductType[];
+  sizeProduct: PriceProductType[];
 };

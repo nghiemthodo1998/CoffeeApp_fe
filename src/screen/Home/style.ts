@@ -12,20 +12,6 @@ const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
   },
-  stackWrapper: {
-    padding: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  windowWrapper: {
-    width: 30,
-    height: 30,
-    borderRadius: 10,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: theme.border.gray,
-  },
   textSearch: {
     color: theme.text.white,
     fontSize: theme.fontSize.fs_28,

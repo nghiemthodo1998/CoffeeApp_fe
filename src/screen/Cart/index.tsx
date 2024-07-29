@@ -15,8 +15,8 @@ const CartScreen: FC<CartScreenProps> = props => {
   const {cartList, handleClearCart} = useCartScreen(props);
   return (
     <View style={styles.cartWrapper}>
-      <HeaderScreen />
       <ScrollView style={styles.cartContainer}>
+        <HeaderScreen />
         {cartList.map((item, index) => {
           console.log('item', item);
           return <CartItem key={index} item={item} />;

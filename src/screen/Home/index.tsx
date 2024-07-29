@@ -35,7 +35,9 @@ const HomeScreen: FC<HomeScreenProps> = props => {
   return (
     <View style={styles.homeWrapper}>
       <ScrollView style={styles.homeContainer}>
-        <HeaderScreen />
+        <View style={styles.headerWrapper}>
+          <HeaderScreen />
+        </View>
         <Text style={styles.textSearch}>Find the best{`\n`}coffee for you</Text>
         <View style={styles.inputSearchWrapper}>
           <View style={styles.inputSearchContainer}>

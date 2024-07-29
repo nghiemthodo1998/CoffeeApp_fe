@@ -6,7 +6,6 @@ const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   detailInfoContainer: {
     height: 148,
-    width: width,
     backgroundColor: '#00000080',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -16,6 +15,7 @@ const styles = StyleSheet.create({
     gap: 13,
   },
   detailInfo: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

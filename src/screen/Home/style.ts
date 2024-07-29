@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
   },
+  headerWrapper: {
+    paddingHorizontal: 30,
+  },
   textSearch: {
     color: theme.text.white,
     fontSize: theme.fontSize.fs_28,

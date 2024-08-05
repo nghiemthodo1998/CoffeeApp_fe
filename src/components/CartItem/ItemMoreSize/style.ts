@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 5,
+    gap: 8,
   },
   priceWrapper: {
     flexDirection: 'row',
@@ -54,9 +55,11 @@ const styles = StyleSheet.create({
   },
   sizeWrapper: {
     backgroundColor: theme.color.background,
-    paddingHorizontal: 28,
-    paddingVertical: 7,
     borderRadius: 10,
+    width: 72,
+    height: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   size: {
     fontSize: theme.fontSize.fs_16,

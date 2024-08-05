@@ -12,15 +12,16 @@ import HeaderScreen from '../../components/HeaderScreen/index.tsx';
 import CartItem from '../../components/CartItem/index.tsx';
 
 const CartScreen: FC<CartScreenProps> = props => {
-  const {cartList, handleClearCart} = useCartScreen(props);
+  const {cartList} = useCartScreen(props);
   return (
     <View style={styles.cartWrapper}>
       <ScrollView style={styles.cartContainer}>
         <HeaderScreen />
-        {cartList.map((item, index) => {
-          console.log('item', item);
-          return <CartItem key={index} item={item} />;
-        })}
+        <View style={styles.listProductContainer}>
+          {cartList.map((item, index) => {
+            return <CartItem key={index} item={item} />;
+          })}
+        </View>
       </ScrollView>
     </View>
   );

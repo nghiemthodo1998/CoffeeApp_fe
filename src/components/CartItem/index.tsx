@@ -7,12 +7,10 @@ import ItemMoreSize from './ItemMoreSize/index.tsx';
 
 const CartItem: FC<CartItemProps> = props => {
   const {item: data} = useCartItem(props);
-  return (
-    <View>
-      <ItemOneSize data={data} />
-      <ItemMoreSize data={data} />
-    </View>
-  );
+  if (data.prices.length === 1) {
+    return <ItemOneSize data={data} />;
+  }
+  return <ItemMoreSize data={data} />;
 };
 
 export default CartItem;

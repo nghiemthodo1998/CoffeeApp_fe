@@ -1,23 +1,14 @@
-import {useCallback, useEffect, useState} from 'react';
-import {ProductType} from '../../data/type';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store';
 
 export interface CartScreenProps {}
 
 const useCartScreen = (props: CartScreenProps) => {
-  const [cartList, setCartList] = useState<ProductType[]>([]);
-  console.log('cartList', cartList);
+  const cartList = useSelector((state: RootState) => state.cart.products);
 
-  const fetchCartData = useCallback(async () => {}, []);
-
-  const handleClearCart = async () => {};
-
-  useEffect(() => {
-    fetchCartData();
-  }, [fetchCartData]);
   return {
     ...props,
     cartList,
-    handleClearCart,
   };
 };
 

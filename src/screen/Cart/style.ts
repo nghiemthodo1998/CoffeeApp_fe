@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 30,
   },
+  listProductContainer: {
+    gap: 16,
+  },
 });
 
 export default styles;

@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
 import styles from './style.ts';
 import useItemOneSize, {ItemOneSizeProps} from './hook.ts';
@@ -15,7 +15,10 @@ const ItemOneSize: FC<ItemOneSizeProps> = props => {
         colors={['#262B33', '#262B3300']}
         style={styles.background}>
         <View style={styles.infoItemWrapper}>
-          <Image source={data.imagelink_square} style={styles.image} />
+          <Image
+            source={data.imagelink_square as ImageSourcePropType}
+            style={styles.image}
+          />
           <View style={styles.infoItem}>
             <Text style={styles.name}>{data.name}</Text>
             <Text style={styles.special}>{data.special_ingredient}</Text>

@@ -1,5 +1,3 @@
-import {ImageProps} from 'react-native';
-
 export type PriceProductType = {
   size: string;
   price: string;
@@ -12,8 +10,8 @@ export type ProductType = {
   name: string;
   description: string;
   roasted: string;
-  imagelink_square: ImageProps;
-  imagelink_portrait: ImageProps;
+  imagelink_square: string;
+  imagelink_portrait: string;
   ingredients: string;
   special_ingredient: string;
   prices: PriceProductType[];
@@ -22,9 +20,4 @@ export type ProductType = {
   favourite: boolean;
   type: string;
   index: number;
-};
-
-export type CartType = {
-  id: string;
-  sizeProduct: PriceProductType[];
 };

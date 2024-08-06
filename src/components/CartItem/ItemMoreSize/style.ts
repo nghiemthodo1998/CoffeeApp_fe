@@ -100,6 +100,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  rotate: {
+    transform: [{rotate: '45deg'}],
+  },
   quantity: {
     fontSize: theme.fontSize.fs_16,
     lineHeight: theme.lineHeight.lh_20,

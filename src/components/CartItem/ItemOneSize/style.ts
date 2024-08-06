@@ -40,8 +40,10 @@ const styles = StyleSheet.create({
   },
   sizeWrapper: {
     backgroundColor: theme.color.background,
-    paddingHorizontal: 28,
-    paddingVertical: 7,
+    height: 35,
+    width: 75,
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 10,
   },
   size: {
@@ -88,6 +90,9 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  rotate: {
+    transform: [{rotate: '45deg'}],
   },
   quantity: {
     fontSize: theme.fontSize.fs_16,

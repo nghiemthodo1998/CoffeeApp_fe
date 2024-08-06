@@ -1,7 +1,7 @@
 import {ProductType} from '../data/type';
 
 type CartState = {
-  products: ProductType[];
+  cart: ProductType[];
 };
 
 export type {CartState};

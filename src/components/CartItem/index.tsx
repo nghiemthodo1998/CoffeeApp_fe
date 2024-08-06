@@ -1,4 +1,3 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
 import styles from './style.ts';
 import useCartItem, {CartItemProps} from './hook.ts';

@@ -1,4 +1,11 @@
-import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {FC} from 'react';
 import styles from './style.ts';
 import useItemOneSize, {ItemOneSizeProps} from './hook.ts';
@@ -8,7 +15,12 @@ import DecreaseIcon from '../../../assets/icons/DecreaseIcon.tsx';
 import IncreaseIcon from '../../../assets/icons/IncreaseIcon.tsx';
 
 const ItemOneSize: FC<ItemOneSizeProps> = props => {
-  const {data} = useItemOneSize(props);
+  const {
+    data,
+    handleIncreaseProduct,
+    handleDecreaseProduct,
+    handleRemoveSizeProduct,
+  } = useItemOneSize(props);
   return (
     <View style={styles.wrapper}>
       <LinearGradient
@@ -24,27 +36,47 @@ const ItemOneSize: FC<ItemOneSizeProps> = props => {
             <Text style={styles.special}>{data.special_ingredient}</Text>
             <View style={styles.priceWrapper}>
               <View style={styles.sizeWrapper}>
-                <Text style={styles.size}>M</Text>
+                <Text style={styles.size}>{data.prices[0].size}</Text>
               </View>
               <View style={styles.priceContainer}>
-                <Text style={styles.currency}>$</Text>
-                <Text style={styles.price}>6.20</Text>
+                <Text style={styles.currency}>{data.prices[0].currency}</Text>
+                <Text style={styles.price}>{data.prices[0].price}</Text>
               </View>
             </View>
             <View style={styles.quantityWrapper}>
-              <View style={styles.btn}>
-                <Svg width={11} height={3}>
-                  <DecreaseIcon />
-                </Svg>
-              </View>
+              {Number(data.prices[0].quantity) > 1 ? (
+                <TouchableOpacity
+                  onPress={e =>
+                    handleDecreaseProduct(data.id, data.prices[0].size)
+                  }
+                  style={styles.btn}>
+                  <Svg width={11} height={3}>
+                    <DecreaseIcon />
+                  </Svg>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={e =>
+                    handleRemoveSizeProduct(data.id, data.prices[0].size)
+                  }>
+                  <Svg width={11} height={11} style={styles.rotate}>
+                    <IncreaseIcon />
+                  </Svg>
+                </TouchableOpacity>
+              )}
               <View style={styles.quantityContainer}>
-                <Text style={styles.quantity}>1</Text>
+                <Text style={styles.quantity}>{data.prices[0].quantity}</Text>
               </View>
-              <View style={styles.btn}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={e =>
+                  handleIncreaseProduct(data.id, data.prices[0].size)
+                }>
                 <Svg width={11} height={11}>
                   <IncreaseIcon />
                 </Svg>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

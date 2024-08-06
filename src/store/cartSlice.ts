@@ -4,7 +4,7 @@ import {CartState} from './type';
 import {ProductType} from '../data/type';
 
 const initialState: CartState = {
-  products: [],
+  cart: [],
 };
 
 const cartSlice = createSlice({
@@ -17,9 +17,7 @@ const cartSlice = createSlice({
       const newProduct = action.payload;
       const listProductMap = new Map<string, ProductType>();
 
-      state.products.forEach(product =>
-        listProductMap.set(product.id, product),
-      );
+      state.cart.forEach(product => listProductMap.set(product.id, product));
 
       if (listProductMap.has(newProduct.id)) {
         //product is exsist in cart
@@ -44,7 +42,7 @@ const cartSlice = createSlice({
             ...exsistProduct,
             prices: [...listSizeMap.values()],
           });
-          state.products = [...listProductMap.values()];
+          state.cart = [...listProductMap.values()];
         } else {
           // size not exsist in product
           let listNewSize = listSizeMap.set(newProductPrice.size, {
@@ -54,15 +52,113 @@ const cartSlice = createSlice({
             ...exsistProduct,
             prices: [...listNewSize.values()],
           });
-          state.products = [...listProductMap.values()];
+          state.cart = [...listProductMap.values()];
         }
       } else {
-        state.products = [...state.products, newProduct];
+        state.cart = [...state.cart, newProduct];
+      }
+    },
+    increaseProduct: (
+      state,
+      action: PayloadAction<{id: string; size: string}>,
+    ) => {
+      const payload = action.payload;
+      const listProductMap = new Map<string, ProductType>();
+
+      state.cart.forEach(product => listProductMap.set(product.id, product));
+
+      if (listProductMap.has(payload.id)) {
+        let currentProduct = listProductMap.get(payload.id)!;
+        let listSizeCurrentMap = new Map<string, PriceProductType>();
+
+        currentProduct.prices.forEach(price =>
+          listSizeCurrentMap.set(price.size, price),
+        );
+
+        if (listSizeCurrentMap.has(payload.size)) {
+          let currentSize = listSizeCurrentMap.get(payload.size)!;
+          listSizeCurrentMap.set(payload.size, {
+            ...currentSize,
+            quantity: (currentSize.quantity || 0) + 1,
+          });
+          listProductMap.set(payload.id, {
+            ...currentProduct,
+            prices: [...listSizeCurrentMap.values()],
+          });
+          state.cart = [...listProductMap.values()];
+        }
+      }
+    },
+    decreaseProduct: (
+      state,
+      action: PayloadAction<{id: string; size: string}>,
+    ) => {
+      const payload = action.payload;
+      const listProductMap = new Map<string, ProductType>();
+
+      state.cart.forEach(product => listProductMap.set(product.id, product));
+
+      if (listProductMap.has(payload.id)) {
+        let currentProduct = listProductMap.get(payload.id)!;
+        let listSizeCurrentMap = new Map<string, PriceProductType>();
+
+        currentProduct.prices.forEach(price =>
+          listSizeCurrentMap.set(price.size, price),
+        );
+
+        if (listSizeCurrentMap.has(payload.size)) {
+          let currentSize = listSizeCurrentMap.get(payload.size)!;
+          listSizeCurrentMap.set(payload.size, {
+            ...currentSize,
+            quantity: (currentSize.quantity || 0) - 1,
+          });
+          listProductMap.set(payload.id, {
+            ...currentProduct,
+            prices: [...listSizeCurrentMap.values()],
+          });
+          state.cart = [...listProductMap.values()];
+        }
+      }
+    },
+    removeSizeProduct: (
+      state,
+      action: PayloadAction<{id: string; size: string}>,
+    ) => {
+      const payload = action.payload;
+      const listProductMap = new Map<string, ProductType>();
+
+      state.cart.forEach(product => listProductMap.set(product.id, product));
+
+      if (listProductMap.has(payload.id)) {
+        let currentProduct = listProductMap.get(payload.id)!;
+
+        if (currentProduct && currentProduct.prices.length === 1) {
+          listProductMap.delete(payload.id);
+          state.cart = [...listProductMap.values()];
+          return;
+        }
+        let listSizeCurrentMap = new Map<string, PriceProductType>();
+
+        currentProduct.prices.forEach(price =>
+          listSizeCurrentMap.set(price.size, price),
+        );
+
+        if (listSizeCurrentMap.has(payload.size)) {
+          listSizeCurrentMap.delete(payload.size);
+
+          listProductMap.set(payload.id, {
+            ...currentProduct,
+            prices: [...listSizeCurrentMap.values()],
+          });
+
+          state.cart = [...listProductMap.values()];
+        }
       }
     },
   },
 });
 
-export const {addToCart} = cartSlice.actions;
+export const {addToCart, increaseProduct, decreaseProduct, removeSizeProduct} =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -5,6 +5,7 @@ import {ProductType} from '../data/type';
 
 const initialState: CartState = {
   cart: [],
+  totalPrice: 0,
 };
 
 const cartSlice = createSlice({
@@ -14,10 +15,17 @@ const cartSlice = createSlice({
     addToCart: (state, action: PayloadAction<ProductType>) => {
       if (!action.payload) return;
 
+      state.totalPrice = 0;
       const newProduct = action.payload;
       const listProductMap = new Map<string, ProductType>();
 
-      state.cart.forEach(product => listProductMap.set(product.id, product));
+      state.cart.forEach(product => {
+        listProductMap.set(product.id, product);
+        state.totalPrice += product.prices.reduce(
+          (acc, cur) => acc + (cur.quantity || 0) * Number(cur.price),
+          0,
+        );
+      });
 
       if (listProductMap.has(newProduct.id)) {
         //product is exsist in cart
@@ -34,29 +42,35 @@ const cartSlice = createSlice({
         if (listSizeMap.has(newProductPrice.size)) {
           //size is exsist in product
           let exsistSize = listSizeMap.get(newProductPrice.size)!;
+
           listSizeMap.set(newProductPrice.size, {
             ...exsistSize,
             quantity: (exsistSize.quantity || 0) + 1,
           });
+
           listProductMap.set(newProduct.id, {
             ...exsistProduct,
             prices: [...listSizeMap.values()],
           });
+
           state.cart = [...listProductMap.values()];
         } else {
           // size not exsist in product
           let listNewSize = listSizeMap.set(newProductPrice.size, {
             ...newProduct.prices[0],
           });
+
           listProductMap.set(newProduct.id, {
             ...exsistProduct,
             prices: [...listNewSize.values()],
           });
+
           state.cart = [...listProductMap.values()];
         }
       } else {
         state.cart = [...state.cart, newProduct];
       }
+      state.totalPrice += Number(newProduct.prices[0].price);
     },
     increaseProduct: (
       state,
@@ -69,6 +83,7 @@ const cartSlice = createSlice({
 
       if (listProductMap.has(payload.id)) {
         let currentProduct = listProductMap.get(payload.id)!;
+
         let listSizeCurrentMap = new Map<string, PriceProductType>();
 
         currentProduct.prices.forEach(price =>
@@ -77,14 +92,19 @@ const cartSlice = createSlice({
 
         if (listSizeCurrentMap.has(payload.size)) {
           let currentSize = listSizeCurrentMap.get(payload.size)!;
+
+          state.totalPrice += Number(currentSize.price);
+
           listSizeCurrentMap.set(payload.size, {
             ...currentSize,
             quantity: (currentSize.quantity || 0) + 1,
           });
+
           listProductMap.set(payload.id, {
             ...currentProduct,
             prices: [...listSizeCurrentMap.values()],
           });
+
           state.cart = [...listProductMap.values()];
         }
       }
@@ -100,6 +120,7 @@ const cartSlice = createSlice({
 
       if (listProductMap.has(payload.id)) {
         let currentProduct = listProductMap.get(payload.id)!;
+
         let listSizeCurrentMap = new Map<string, PriceProductType>();
 
         currentProduct.prices.forEach(price =>
@@ -108,14 +129,19 @@ const cartSlice = createSlice({
 
         if (listSizeCurrentMap.has(payload.size)) {
           let currentSize = listSizeCurrentMap.get(payload.size)!;
+
+          state.totalPrice -= Number(currentSize.price);
+
           listSizeCurrentMap.set(payload.size, {
             ...currentSize,
             quantity: (currentSize.quantity || 0) - 1,
           });
+
           listProductMap.set(payload.id, {
             ...currentProduct,
             prices: [...listSizeCurrentMap.values()],
           });
+
           state.cart = [...listProductMap.values()];
         }
       }
@@ -134,7 +160,10 @@ const cartSlice = createSlice({
 
         if (currentProduct && currentProduct.prices.length === 1) {
           listProductMap.delete(payload.id);
+
           state.cart = [...listProductMap.values()];
+
+          state.totalPrice -= Number(currentProduct.prices[0].price);
           return;
         }
         let listSizeCurrentMap = new Map<string, PriceProductType>();
@@ -144,6 +173,10 @@ const cartSlice = createSlice({
         );
 
         if (listSizeCurrentMap.has(payload.size)) {
+          let currentSize = listSizeCurrentMap.get(payload.size);
+
+          state.totalPrice -= Number(currentSize?.price);
+
           listSizeCurrentMap.delete(payload.size);
 
           listProductMap.set(payload.id, {

@@ -48,7 +48,7 @@ type IconProps = {
 };
 
 type NavigationType = {
-  DetailScreen: {detailId: string; type: string};
+  DetailScreen: {detailId: string};
   CartScreen: any;
 };
 

@@ -4,6 +4,7 @@ import {ProductType} from '../../data/type';
 export interface ProductDetailProps {
   data?: ProductType;
   borderRadiusImage?: number;
+  onToggleFavorite: (productId?: string) => void;
 }
 
 const useProductDetail = (props: ProductDetailProps) => {

@@ -4,4 +4,8 @@ type CartState = {
   cart: ProductType[];
 };
 
-export type {CartState};
+type ProductState = {
+  products: ProductType[];
+};
+
+export type {CartState, ProductState};

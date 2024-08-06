@@ -1,7 +1,6 @@
 import {
   ImageBackground,
-  StyleSheet,
-  Text,
+  ImageSourcePropType,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -16,7 +15,12 @@ import DetailInfo from '../FlatListItem/DetailInfo/index.tsx';
 import {theme} from '../../common/theme.ts';
 
 const ProductDetail: FC<ProductDetailProps> = props => {
-  const {data, borderRadiusImage = 0, handleBack} = useProductDetail(props);
+  const {
+    data,
+    borderRadiusImage = 0,
+    handleBack,
+    onToggleFavorite,
+  } = useProductDetail(props);
   return (
     <ImageBackground
       style={styles.backgroundImage}
@@ -24,7 +28,7 @@ const ProductDetail: FC<ProductDetailProps> = props => {
         borderTopLeftRadius: borderRadiusImage,
         borderTopRightRadius: borderRadiusImage,
       }}
-      source={data?.imagelink_portrait}>
+      source={data?.imagelink_portrait as ImageSourcePropType}>
       <View style={styles.stackWrapper}>
         <LinearGradient
           colors={['#21262E', '#0C0F14']}
@@ -35,15 +39,19 @@ const ProductDetail: FC<ProductDetailProps> = props => {
             </Svg>
           </TouchableOpacity>
         </LinearGradient>
-        <LinearGradient
-          colors={['#21262E', '#0C0F14']}
-          style={styles.windowWrapper}>
-          <Svg height="19px" width="19px">
-            <RedHeartIcon
-              color={data?.favourite ? theme.color.red : theme.color.lightGray}
-            />
-          </Svg>
-        </LinearGradient>
+        <TouchableOpacity onPress={e => onToggleFavorite(data?.id)}>
+          <LinearGradient
+            colors={['#21262E', '#0C0F14']}
+            style={styles.windowWrapper}>
+            <Svg height="19px" width="19px">
+              <RedHeartIcon
+                color={
+                  data?.favourite ? theme.color.red : theme.color.lightGray
+                }
+              />
+            </Svg>
+          </LinearGradient>
+        </TouchableOpacity>
       </View>
       <View style={styles.detailInfoWrapper}>
         <DetailInfo data={data} />

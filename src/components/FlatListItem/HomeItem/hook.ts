@@ -13,7 +13,7 @@ const useHomeItem = (props: HomeItemProps) => {
   const price = data.prices[data.prices.length - 1];
 
   const handleNavigateDetail = () => {
-    navigate('DetailScreen', {detailId: data.id, type: data.type});
+    navigate('DetailScreen', {detailId: data.id});
   };
 
   return {

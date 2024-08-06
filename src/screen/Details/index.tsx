@@ -6,11 +6,11 @@ import AddProductDetail from '../../components/AddProductDetail/index.tsx';
 import ProductDetail from '../../components/ProductDetail/index.tsx';
 
 const DetailScreen: FC<DetailScreenProps> = props => {
-  const {data} = useDetailScreen(props);
+  const {data, handleToggleFavorite} = useDetailScreen(props);
   return (
     <View style={styles.detailWrapper}>
       <ScrollView contentContainerStyle={styles.detailContainer}>
-        <ProductDetail data={data} />
+        <ProductDetail data={data} onToggleFavorite={handleToggleFavorite} />
         <AddProductDetail data={data} />
       </ScrollView>
     </View>

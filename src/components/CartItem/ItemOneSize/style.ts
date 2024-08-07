@@ -91,6 +91,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  btnRemove: {
+    backgroundColor: theme.color.red,
+    width: 28,
+    height: 28,
+    borderRadius: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   rotate: {
     transform: [{rotate: '45deg'}],
   },

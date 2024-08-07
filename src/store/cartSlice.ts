@@ -70,7 +70,9 @@ const cartSlice = createSlice({
       } else {
         state.cart = [...state.cart, newProduct];
       }
-      state.totalPrice += Number(newProduct.prices[0].price);
+      state.totalPrice = parseFloat(
+        (state.totalPrice + Number(newProduct.prices[0].price)).toFixed(2),
+      );
     },
     increaseProduct: (
       state,
@@ -93,7 +95,9 @@ const cartSlice = createSlice({
         if (listSizeCurrentMap.has(payload.size)) {
           let currentSize = listSizeCurrentMap.get(payload.size)!;
 
-          state.totalPrice += Number(currentSize.price);
+          state.totalPrice = parseFloat(
+            state.totalPrice + Number(currentSize.price).toFixed(2),
+          );
 
           listSizeCurrentMap.set(payload.size, {
             ...currentSize,
@@ -130,7 +134,9 @@ const cartSlice = createSlice({
         if (listSizeCurrentMap.has(payload.size)) {
           let currentSize = listSizeCurrentMap.get(payload.size)!;
 
-          state.totalPrice -= Number(currentSize.price);
+          state.totalPrice = parseFloat(
+            (state.totalPrice - Number(currentSize.price)).toFixed(2),
+          );
 
           listSizeCurrentMap.set(payload.size, {
             ...currentSize,
@@ -163,7 +169,11 @@ const cartSlice = createSlice({
 
           state.cart = [...listProductMap.values()];
 
-          state.totalPrice -= Number(currentProduct.prices[0].price);
+          state.totalPrice = parseFloat(
+            (state.totalPrice - Number(currentProduct.prices[0].price)).toFixed(
+              2,
+            ),
+          );
           return;
         }
         let listSizeCurrentMap = new Map<string, PriceProductType>();
@@ -175,7 +185,9 @@ const cartSlice = createSlice({
         if (listSizeCurrentMap.has(payload.size)) {
           let currentSize = listSizeCurrentMap.get(payload.size);
 
-          state.totalPrice -= Number(currentSize?.price);
+          state.totalPrice = parseFloat(
+            (state.totalPrice - Number(currentSize?.price)).toFixed(2),
+          );
 
           listSizeCurrentMap.delete(payload.size);
 

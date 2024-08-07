@@ -1,6 +1,7 @@
 import {
   Image,
   ImageBackground,
+  ImageSourcePropType,
   Text,
   TouchableOpacity,
   View,
@@ -19,6 +20,7 @@ const HomeItem: FC<HomeItemProps> = props => {
     price,
     isShowRating = false,
     handleNavigateDetail,
+    handleAddToCart,
   } = useHomeItem(props);
   return (
     <TouchableOpacity onPress={handleNavigateDetail}>
@@ -26,7 +28,7 @@ const HomeItem: FC<HomeItemProps> = props => {
         style={styles.homeItemWrapper}
         colors={['#252A32', '#262B3300']}>
         <ImageBackground
-          source={data.imagelink_square}
+          source={data.imagelink_square as ImageSourcePropType}
           style={styles.imageBackground}
           imageStyle={styles.image}>
           {isShowRating && (
@@ -45,7 +47,7 @@ const HomeItem: FC<HomeItemProps> = props => {
             <Text style={styles.currency}>{price.currency}</Text>
             <Text style={styles.price}>{price.price}</Text>
           </View>
-          <TouchableOpacity style={styles.add}>
+          <TouchableOpacity style={styles.add} onPress={handleAddToCart}>
             <Svg height="10px" width="10px">
               <Plus />
             </Svg>

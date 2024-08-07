@@ -23,7 +23,7 @@ const SizeDetail: FC<SizeDetailProps> = props => {
         </View>
       </View>
       <Text style={[styles.subText, {paddingRight: 10}]}>
-        {(size.quantity || 1) * Number(size.price)}
+        {((size.quantity || 1) * Number(size.price)).toFixed(2)}
       </Text>
     </View>
   );

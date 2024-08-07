@@ -9,8 +9,8 @@ const BeansData = [
     ingredients: 'Africa',
     special_ingredient: 'From Africa',
     prices: [
-      {size: '250gm', price: '5.50', currency: '$'},
-      {size: '500gm', price: '10.50', currency: '$'},
+      {size: '250gr', price: '5.50', currency: '$'},
+      {size: '500gr', price: '10.50', currency: '$'},
       {size: '1Kg', price: '18.50', currency: '$'},
     ],
     average_rating: 4.7,
@@ -29,8 +29,8 @@ const BeansData = [
     ingredients: 'Africa',
     special_ingredient: 'From Africa',
     prices: [
-      {size: '250gm', price: '5.50', currency: '$'},
-      {size: '500gm', price: '10.50', currency: '$'},
+      {size: '250gr', price: '5.50', currency: '$'},
+      {size: '500gr', price: '10.50', currency: '$'},
       {size: '1Kg', price: '18.50', currency: '$'},
     ],
     average_rating: 4.7,
@@ -49,8 +49,8 @@ const BeansData = [
     ingredients: 'Malaysia',
     special_ingredient: 'From Malaysia',
     prices: [
-      {size: '250gm', price: '5.50', currency: '$'},
-      {size: '500gm', price: '10.50', currency: '$'},
+      {size: '250gr', price: '5.50', currency: '$'},
+      {size: '500gr', price: '10.50', currency: '$'},
       {size: '1Kg', price: '18.50', currency: '$'},
     ],
     average_rating: 4.7,
@@ -69,8 +69,8 @@ const BeansData = [
     ingredients: 'Malaysia',
     special_ingredient: 'From Malaysia',
     prices: [
-      {size: '250gm', price: '5.50', currency: '$'},
-      {size: '500gm', price: '10.50', currency: '$'},
+      {size: '250gr', price: '5.50', currency: '$'},
+      {size: '500gr', price: '10.50', currency: '$'},
       {size: '1Kg', price: '18.50', currency: '$'},
     ],
     average_rating: 4.7,

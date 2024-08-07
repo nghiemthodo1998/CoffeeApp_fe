@@ -59,7 +59,7 @@ const ItemOneSize: FC<ItemOneSizeProps> = props => {
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
-                  style={styles.btn}
+                  style={styles.btnRemove}
                   onPress={e =>
                     handleRemoveSizeProduct(data.id, data.prices[0].size)
                   }>

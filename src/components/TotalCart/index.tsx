@@ -4,7 +4,7 @@ import styles from './style.ts';
 import useTotalCart, {TotalCartProps} from './hook.ts';
 
 const TotalCart: FC<TotalCartProps> = props => {
-  const {totalPrice} = useTotalCart(props);
+  const {totalPrice, handlePayment} = useTotalCart(props);
   return (
     <View style={styles.priceWrapper}>
       <View>
@@ -15,7 +15,7 @@ const TotalCart: FC<TotalCartProps> = props => {
         </View>
       </View>
       <TouchableOpacity
-        // onPress={handleAddToCart}
+        onPress={handlePayment}
         disabled={!Boolean(totalPrice)}
         style={
           Boolean(totalPrice)

@@ -9,4 +9,14 @@ type ProductState = {
   products: ProductType[];
 };
 
-export type {CartState, ProductState};
+type OrderDetailType = {
+  created_at: string;
+  totalPrice: number;
+  listOrder: ProductType[];
+};
+
+type OrderState = {
+  orderHistory: OrderDetailType[];
+};
+
+export type {CartState, ProductState, OrderDetailType, OrderState};

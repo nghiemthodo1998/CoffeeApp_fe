@@ -6,12 +6,15 @@ import {
   increaseProduct,
   removeSizeProduct,
 } from '../../../store/cartSlice';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {NavigationType} from '../../../common/type';
 
 export interface ItemMoreSizeProps {
   data: ProductType;
 }
 
 const useItemMoreSize = (props: ItemMoreSizeProps) => {
+  const {navigate} = useNavigation<NavigationProp<NavigationType>>();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleIncreaseProduct = (id: string, size: string) => {
@@ -27,6 +30,7 @@ const useItemMoreSize = (props: ItemMoreSizeProps) => {
   };
   return {
     ...props,
+    navigate,
     handleIncreaseProduct,
     handleDecreaseProduct,
     handleRemoveSizeProduct,

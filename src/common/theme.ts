@@ -31,6 +31,7 @@ const theme: ThemeType = {
     fs_28: 28,
   },
   fontWeight: {
+    fw_400: '400',
     fw_500: '500',
     fw_600: '600',
   },

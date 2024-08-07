@@ -29,6 +29,7 @@ type ThemeType = {
     fs_28: number;
   };
   fontWeight: {
+    fw_400: any;
     fw_500: any;
     fw_600: any;
   };
@@ -50,6 +51,7 @@ type IconProps = {
 type NavigationType = {
   DetailScreen: {detailId: string};
   CartScreen: any;
+  OrderHistory: any;
 };
 
 export type {ThemeType, IconProps, NavigationType};

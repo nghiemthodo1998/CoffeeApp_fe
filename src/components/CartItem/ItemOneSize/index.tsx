@@ -17,12 +17,15 @@ import IncreaseIcon from '../../../assets/icons/IncreaseIcon.tsx';
 const ItemOneSize: FC<ItemOneSizeProps> = props => {
   const {
     data,
+    navigate,
     handleIncreaseProduct,
     handleDecreaseProduct,
     handleRemoveSizeProduct,
   } = useItemOneSize(props);
   return (
-    <View style={styles.wrapper}>
+    <TouchableOpacity
+      onPress={e => navigate('DetailScreen', {detailId: data.id})}
+      style={styles.wrapper}>
       <LinearGradient
         colors={['#262B33', '#262B3300']}
         style={styles.background}>
@@ -81,7 +84,7 @@ const ItemOneSize: FC<ItemOneSizeProps> = props => {
           </View>
         </View>
       </LinearGradient>
-    </View>
+    </TouchableOpacity>
   );
 };
 

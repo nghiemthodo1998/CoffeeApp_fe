@@ -67,7 +67,7 @@ const HomeNavigation: FC = props => {
         }}
       />
       <Tab.Screen
-        name="Order History"
+        name="OrderHistory"
         component={OrderHistoryScreen}
         options={{
           tabBarLabel: 'Order',

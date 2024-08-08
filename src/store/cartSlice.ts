@@ -96,7 +96,7 @@ const cartSlice = createSlice({
           let currentSize = listSizeCurrentMap.get(payload.size)!;
 
           state.totalPrice = parseFloat(
-            state.totalPrice + Number(currentSize.price).toFixed(2),
+            (state.totalPrice + Number(currentSize.price)).toFixed(2),
           );
 
           listSizeCurrentMap.set(payload.size, {

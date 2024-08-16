@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ProductType} from '../../data/type';
 
 export interface ProductDetailProps {
-  data?: ProductType;
+  data: ProductType;
   borderRadiusImage?: number;
   onToggleFavorite: (productId?: string) => void;
 }

@@ -9,12 +9,12 @@ const AddProductDetail: FC<AddProductDetailProps> = props => {
   return (
     <View style={styles.addProductWrapper}>
       <Text style={styles.label}>Description</Text>
-      <Text style={styles.description}>{data?.description}</Text>
+      <Text style={styles.description}>{data.description}</Text>
 
       <View style={styles.sizeWrapper}>
         <Text style={styles.label}>Size</Text>
         <View style={styles.sizeContainer}>
-          {data?.prices.map((item, index) => {
+          {data.prices.map((item, index) => {
             return (
               <TouchableOpacity
                 key={index}

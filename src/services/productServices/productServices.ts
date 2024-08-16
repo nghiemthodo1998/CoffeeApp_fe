@@ -13,4 +13,8 @@ export class ProductServices {
   async getProducts(params: GetProductRequest): Promise<ProductType[]> {
     return (await axiosInstance.get('/products', {params})).data;
   }
+
+  async getProductDetail(params: {productId: string}): Promise<ProductType> {
+    return (await axiosInstance.get(`/products/${params.productId}`)).data;
+  }
 }

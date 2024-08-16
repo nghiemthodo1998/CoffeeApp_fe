@@ -7,7 +7,7 @@ import {useDispatch} from 'react-redux';
 import {addToCart} from '../../store/cartSlice';
 
 export interface AddProductDetailProps {
-  data?: ProductType;
+  data: ProductType;
 }
 
 const useAddProductDetail = (props: AddProductDetailProps) => {

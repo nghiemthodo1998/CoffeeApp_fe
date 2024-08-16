@@ -28,7 +28,7 @@ const ProductDetail: FC<ProductDetailProps> = props => {
         borderTopLeftRadius: borderRadiusImage,
         borderTopRightRadius: borderRadiusImage,
       }}
-      source={data?.imagelink_portrait as ImageSourcePropType}>
+      source={{uri: data.imagelink_portrait}}>
       <View style={styles.stackWrapper}>
         <LinearGradient
           colors={['#21262E', '#0C0F14']}
@@ -39,15 +39,13 @@ const ProductDetail: FC<ProductDetailProps> = props => {
             </Svg>
           </TouchableOpacity>
         </LinearGradient>
-        <TouchableOpacity onPress={e => onToggleFavorite(data?.id)}>
+        <TouchableOpacity onPress={e => onToggleFavorite(data.id)}>
           <LinearGradient
             colors={['#21262E', '#0C0F14']}
             style={styles.windowWrapper}>
             <Svg height="19px" width="19px">
               <RedHeartIcon
-                color={
-                  data?.favourite ? theme.color.red : theme.color.lightGray
-                }
+                color={data.favourite ? theme.color.red : theme.color.lightGray}
               />
             </Svg>
           </LinearGradient>

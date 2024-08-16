@@ -30,10 +30,7 @@ const ItemOneSize: FC<ItemOneSizeProps> = props => {
         colors={['#262B33', '#262B3300']}
         style={styles.background}>
         <View style={styles.infoItemWrapper}>
-          <Image
-            source={data.imagelink_square as ImageSourcePropType}
-            style={styles.image}
-          />
+          <Image source={{uri: data.imagelink_square}} style={styles.image} />
           <View style={styles.infoItem}>
             <Text style={styles.name}>{data.name}</Text>
             <Text style={styles.special}>{data.special_ingredient}</Text>

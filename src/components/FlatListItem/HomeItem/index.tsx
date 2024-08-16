@@ -28,7 +28,7 @@ const HomeItem: FC<HomeItemProps> = props => {
         style={styles.homeItemWrapper}
         colors={['#252A32', '#262B3300']}>
         <ImageBackground
-          source={data.imagelink_square as ImageSourcePropType}
+          source={{uri: data.imagelink_square}}
           style={styles.imageBackground}
           imageStyle={styles.image}>
           {isShowRating && (

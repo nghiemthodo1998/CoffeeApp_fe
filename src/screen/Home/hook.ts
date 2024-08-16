@@ -1,7 +1,8 @@
-import {useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import CoffeeData from '../../data/CoffeeData';
 import {ProductType} from '../../data/type';
 import {FlatList} from 'react-native';
+import {productServices} from '../../services';
 
 export interface HomeScreenProps {}
 
@@ -10,13 +11,18 @@ const useHomeScreen = (props: HomeScreenProps) => {
   const [isFocusSearch, setIsFocusSearch] = useState<boolean>(false);
   const [textSearch, setTextSearch] = useState<string>('');
   const [categorySelected, setCategorySelected] = useState<string>('All');
-  const [coffeeList, setCoffeeList] = useState<ProductType[]>(CoffeeData);
+  const [isClickSearch, setIsClickSearch] = useState(true);
+  const [coffeeList, setCoffeeList] = useState<{
+    loading: boolean;
+    data: ProductType[];
+  }>({loading: false, data: []});
 
-  const categoriesFromData = Array.from(
-    new Set(CoffeeData.map(item => item.name)),
-  );
+  const [beanList, setBeanList] = useState<{
+    loading: boolean;
+    data: ProductType[];
+  }>({loading: false, data: []});
 
-  const categoriesList = ['All', ...categoriesFromData];
+  const [categoriesList, setCategoriesList] = useState<string[]>([]);
 
   const handleFocusSearch = () => {
     setIsFocusSearch(true);
@@ -26,15 +32,9 @@ const useHomeScreen = (props: HomeScreenProps) => {
     setIsFocusSearch(false);
   };
 
-  const handleSearchCoffee = (text: string) => {
-    setTextSearch(text);
+  const handleSearchCoffee = () => {
     setCategorySelected('All');
-
-    let coffeeFilter = CoffeeData.filter(item =>
-      item.name.toLocaleLowerCase().includes(text.toLocaleLowerCase()),
-    );
-
-    setCoffeeList(coffeeFilter);
+    setIsClickSearch(prev => !prev);
     handleScrollToTop();
   };
 
@@ -50,16 +50,68 @@ const useHomeScreen = (props: HomeScreenProps) => {
 
     setCategorySelected(category);
     setTextSearch('');
-
-    if (category === 'All') {
-      setCoffeeList(CoffeeData);
-    } else {
-      let coffeeFilter = CoffeeData.filter(item => item.name === category);
-      setCoffeeList(coffeeFilter);
-    }
-
     handleScrollToTop();
   };
+
+  const fetchCategories = useCallback(async () => {
+    try {
+      const response = await productServices.getCategories();
+
+      let categories = response
+        .filter(item => {
+          if (!(item.type === 'Coffee')) return;
+          return item.name;
+        })
+        .map(item => item.name);
+
+      setCategoriesList(['All', ...categories]);
+    } catch (error) {
+      console.log('error', error);
+    }
+  }, []);
+
+  const fetchCoffeeList = useCallback(async () => {
+    setCoffeeList(prev => ({...prev, loading: true}));
+
+    try {
+      const response = await productServices.getProducts({
+        category: categorySelected,
+        type: 'Coffee',
+        textSearch: textSearch,
+      });
+
+      setCoffeeList(prev => ({...prev, loading: false, data: response}));
+    } catch (error) {
+      setCoffeeList(prev => ({...prev, loading: false}));
+    }
+  }, [isClickSearch, categorySelected]);
+
+  const fetchBeanList = useCallback(async () => {
+    setBeanList(prev => ({...prev, loading: true}));
+
+    try {
+      const response = await productServices.getProducts({
+        category: 'All',
+        type: 'Bean',
+      });
+
+      setBeanList(prev => ({...prev, loading: false, data: response}));
+    } catch (error) {
+      setBeanList(prev => ({...prev, loading: false}));
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  useEffect(() => {
+    fetchCoffeeList();
+  }, [fetchCoffeeList]);
+
+  useEffect(() => {
+    fetchBeanList();
+  }, [fetchBeanList]);
 
   return {
     ...props,
@@ -68,7 +120,9 @@ const useHomeScreen = (props: HomeScreenProps) => {
     textSearch,
     categorySelected,
     coffeeList,
+    beanList,
     coffeeRef,
+    setTextSearch,
     handleFocusSearch,
     handleBlurSearch,
     handleSearchCoffee,

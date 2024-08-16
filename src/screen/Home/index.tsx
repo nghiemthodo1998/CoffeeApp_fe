@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   ScrollView,
   Text,
@@ -9,13 +10,10 @@ import {
 import React, {FC} from 'react';
 import styles from './style.ts';
 import useHomeScreen, {HomeScreenProps} from './hook.ts';
-import Window from '../../assets/icons/Window.tsx';
 import {Svg} from 'react-native-svg';
-import LinearGradient from 'react-native-linear-gradient';
 import SearchIcon from '../../assets/icons/SearchIcon.tsx';
 import {theme} from '../../common/theme.ts';
 import HomeItem from '../../components/FlatListItem/HomeItem/index.tsx';
-import BeansData from '../../data/BeansData.ts';
 import EmptyItem from '../../components/FlatListItem/EmptyItem/index.tsx';
 import HeaderScreen from '../../components/HeaderScreen/index.tsx';
 
@@ -26,7 +24,9 @@ const HomeScreen: FC<HomeScreenProps> = props => {
     textSearch,
     categorySelected,
     coffeeList,
+    beanList,
     coffeeRef,
+    setTextSearch,
     handleFocusSearch,
     handleBlurSearch,
     handleSearchCoffee,
@@ -41,15 +41,20 @@ const HomeScreen: FC<HomeScreenProps> = props => {
         <Text style={styles.textSearch}>Find the best{`\n`}coffee for you</Text>
         <View style={styles.inputSearchWrapper}>
           <View style={styles.inputSearchContainer}>
-            <Svg height="20px" width="20px">
-              <SearchIcon
-                color={
-                  isFocusSearch || textSearch
-                    ? theme.button.orange
-                    : theme.button.gray
-                }
-              />
-            </Svg>
+            <TouchableOpacity
+              onPress={e => {
+                handleSearchCoffee();
+              }}>
+              <Svg height="20px" width="20px">
+                <SearchIcon
+                  color={
+                    isFocusSearch || textSearch
+                      ? theme.button.orange
+                      : theme.button.gray
+                  }
+                />
+              </Svg>
+            </TouchableOpacity>
             <TextInput
               value={textSearch}
               onFocus={handleFocusSearch}
@@ -57,7 +62,7 @@ const HomeScreen: FC<HomeScreenProps> = props => {
               style={styles.inputSearch}
               placeholder="Find Your Coffee..."
               placeholderTextColor={theme.text.gray}
-              onChangeText={text => handleSearchCoffee(text)}
+              onChangeText={text => setTextSearch(text)}
             />
           </View>
         </View>
@@ -86,29 +91,37 @@ const HomeScreen: FC<HomeScreenProps> = props => {
             );
           })}
         </ScrollView>
-        <FlatList
-          ref={coffeeRef}
-          ListEmptyComponent={<EmptyItem text="Coffee not available" />}
-          horizontal
-          contentContainerStyle={styles.coffeeContainer}
-          data={coffeeList}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => {
-            return <HomeItem data={item} isShowRating={true} />;
-          }}
-        />
-        <View style={styles.beansWrapper}>
-          <Text style={styles.beansLabel}>Coffee beans</Text>
+        {coffeeList.loading ? (
+          <ActivityIndicator size="large" color="#0000ff" />
+        ) : (
           <FlatList
+            ref={coffeeRef}
+            ListEmptyComponent={<EmptyItem text="Coffee not available" />}
             horizontal
-            ListEmptyComponent={<EmptyItem text="Bean not available" />}
-            contentContainerStyle={styles.beansContainer}
-            data={BeansData}
+            contentContainerStyle={styles.coffeeContainer}
+            data={coffeeList.data}
             keyExtractor={item => item.id}
             renderItem={({item}) => {
-              return <HomeItem data={item} />;
+              return <HomeItem data={item} isShowRating={true} />;
             }}
           />
+        )}
+        <View style={styles.beansWrapper}>
+          <Text style={styles.beansLabel}>Coffee beans</Text>
+          {beanList.loading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : (
+            <FlatList
+              horizontal
+              ListEmptyComponent={<EmptyItem text="Bean not available" />}
+              contentContainerStyle={styles.beansContainer}
+              data={beanList.data}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => {
+                return <HomeItem data={item} />;
+              }}
+            />
+          )}
         </View>
       </ScrollView>
     </View>

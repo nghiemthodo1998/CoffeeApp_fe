@@ -64,7 +64,10 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 7,
   },
-
+  loading: {
+    height: 258,
+    justifyContent: 'center',
+  },
   coffeeContainer: {
     marginTop: 30,
     gap: 20,

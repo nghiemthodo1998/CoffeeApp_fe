@@ -36,7 +36,6 @@ const useDetailScreen = (props: DetailScreenProps) => {
       });
 
       setDataDetail(prev => ({...prev, loading: false, data: response}));
-      console.log('response', response);
     } catch (error) {
       setDataDetail(prev => ({...prev, loading: false, data: undefined}));
     }

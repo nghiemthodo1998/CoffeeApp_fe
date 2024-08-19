@@ -65,9 +65,7 @@ const useHomeScreen = (props: HomeScreenProps) => {
         .map(item => item.name);
 
       setCategoriesList(['All', ...categories]);
-    } catch (error) {
-      console.log('error', error);
-    }
+    } catch (error) {}
   }, []);
 
   const fetchCoffeeList = useCallback(async () => {

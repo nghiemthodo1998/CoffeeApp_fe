@@ -92,7 +92,9 @@ const HomeScreen: FC<HomeScreenProps> = props => {
           })}
         </ScrollView>
         {coffeeList.loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <View style={styles.loading}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
         ) : (
           <FlatList
             ref={coffeeRef}
@@ -109,7 +111,9 @@ const HomeScreen: FC<HomeScreenProps> = props => {
         <View style={styles.beansWrapper}>
           <Text style={styles.beansLabel}>Coffee beans</Text>
           {beanList.loading ? (
-            <ActivityIndicator size="large" color="#0000ff" />
+            <View style={styles.loading}>
+              <ActivityIndicator size="large" color="#0000ff" />
+            </View>
           ) : (
             <FlatList
               horizontal

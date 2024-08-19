@@ -12,7 +12,6 @@ const FavoritesScreen: FC<FavoritesScreenProps> = props => {
       <ScrollView contentContainerStyle={styles.favoriteContainer}>
         <HeaderScreen />
         {favoriteList.map((item, index) => {
-          console.log('item', item);
           return (
             <FavoriteItem
               key={index}

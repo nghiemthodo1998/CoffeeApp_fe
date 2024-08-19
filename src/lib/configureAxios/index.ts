@@ -25,7 +25,6 @@ axiosInstance.interceptors.response.use(
   error => {
     if (error.response && error.response.status === 401) {
     }
-    console.log('error', error);
     return Promise.reject(error);
   },
 );

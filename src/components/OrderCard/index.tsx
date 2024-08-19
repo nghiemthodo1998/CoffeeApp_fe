@@ -14,10 +14,7 @@ const OrderCard: FC<OrderCardProps> = props => {
       style={styles.orderWrapper}>
       <View style={styles.infoWrapper}>
         <View style={styles.infoContainer}>
-          <Image
-            source={data.imagelink_square as ImageSourcePropType}
-            style={styles.images}
-          />
+          <Image source={{uri: data.imagelink_square}} style={styles.images} />
           <View>
             <Text style={styles.name}>{data.name}</Text>
             <Text style={styles.special}>{data.special_ingredient}</Text>

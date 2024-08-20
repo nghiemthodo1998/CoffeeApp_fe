@@ -13,6 +13,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     gap: 28,
   },
+  emptyContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  empty: {
+    color: theme.text.lightGray,
+  },
 });
 
 export default styles;

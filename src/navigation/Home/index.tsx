@@ -56,6 +56,7 @@ const HomeNavigation: FC = props => {
         name="Favorites"
         component={FavoritesScreen}
         options={{
+          unmountOnBlur: true,
           tabBarLabel: 'Favorites',
           tabBarIcon: ({color, size}) => {
             return (
@@ -70,6 +71,7 @@ const HomeNavigation: FC = props => {
         name="OrderHistory"
         component={OrderHistoryScreen}
         options={{
+          unmountOnBlur: true,
           tabBarLabel: 'Order',
           tabBarIcon: ({color, size}) => {
             return (

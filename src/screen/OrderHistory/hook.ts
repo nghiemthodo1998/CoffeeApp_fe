@@ -10,11 +10,11 @@ const useOrderHistoryScreen = (props: OrderHistoryScreenProps) => {
   const [orderList, setOrderList] = useState<{
     loading: boolean;
     data: OrderType[];
-  }>({loading: false, data: []});
+  }>({loading: true, data: []});
 
   const fetchOrderList = useCallback(async () => {
     try {
-      setOrderList(prev => ({...prev, loading: true, data: []}));
+      setOrderList(prev => ({...prev, loading: true}));
       const response = await orderServices.getOrderList();
       const convertData = response.map(item => ({
         id: item.id,
@@ -29,11 +29,9 @@ const useOrderHistoryScreen = (props: OrderHistoryScreenProps) => {
     }
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      fetchOrderList();
-    }, [fetchOrderList]),
-  );
+  useEffect(() => {
+    fetchOrderList();
+  }, [fetchOrderList]);
 
   return {
     ...props,

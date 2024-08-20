@@ -1,6 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../store';
-import {paymentOrder} from '../../store/orderSlice';
 import {clearCart} from '../../store/cartSlice';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {NavigationType} from '../../common/type';
@@ -15,18 +14,12 @@ const useTotalCart = (props: TotalCartProps) => {
 
   const handlePayment = async () => {
     try {
-      const response = await orderServices.createOrder({
+      await orderServices.createOrder({
         created_at: new Date(),
         listOrder: cart,
         totalPrice: totalPrice,
       });
-      dispatch(
-        paymentOrder({
-          created_at: new Date().toISOString(),
-          listOrder: cart,
-          totalPrice: totalPrice,
-        }),
-      );
+
       dispatch(clearCart());
       navigate('OrderHistory');
     } catch (error) {

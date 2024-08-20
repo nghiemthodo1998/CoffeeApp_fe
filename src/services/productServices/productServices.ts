@@ -25,4 +25,8 @@ export class ProductServices {
     return (await axiosInstance.put(`/products/favorite/${params.productId}`))
       .data;
   }
+
+  async getProductFavoritesList(): Promise<ProductType[]> {
+    return (await axiosInstance.get('/products/favorite')).data;
+  }
 }

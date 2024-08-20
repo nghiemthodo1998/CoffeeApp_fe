@@ -17,4 +17,12 @@ export class ProductServices {
   async getProductDetail(params: {productId: string}): Promise<ProductType> {
     return (await axiosInstance.get(`/products/${params.productId}`)).data;
   }
+
+  async updateProductFavorite(params: {productId: string}): Promise<{
+    success: boolean;
+    favorite: boolean;
+  }> {
+    return (await axiosInstance.put(`/products/favorite/${params.productId}`))
+      .data;
+  }
 }

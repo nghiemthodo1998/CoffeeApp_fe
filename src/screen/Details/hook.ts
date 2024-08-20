@@ -1,9 +1,6 @@
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {NavigationType} from '../../common/type';
-import {useDispatch} from 'react-redux';
-import {AppDispatch} from '../../store';
 import {ProductType} from '../../data/type';
-import {toggleFavorite} from '../../store/productSlice';
 import {useCallback, useEffect, useState} from 'react';
 import {productServices} from '../../services';
 
@@ -13,7 +10,6 @@ export interface DetailScreenProps {}
 
 const useDetailScreen = (props: DetailScreenProps) => {
   const route = useRoute<DetailScreenRouteProp>();
-  const dispatch = useDispatch<AppDispatch>();
 
   const {detailId} = route.params;
 
@@ -22,14 +18,25 @@ const useDetailScreen = (props: DetailScreenProps) => {
     data: ProductType | undefined;
   }>({loading: false, data: undefined});
 
-  const handleToggleFavorite = (productId?: string) => {
+  const handleToggleFavorite = async (productId?: string) => {
     if (!productId) return;
-    dispatch(toggleFavorite({productId}));
+    const response = await productServices.updateProductFavorite({
+      productId: detailId,
+    });
+
+    if (!response.success) return;
+
+    setDataDetail(prev => ({
+      ...prev,
+      data: {...prev.data!, favourite: response.favorite},
+    }));
   };
 
   const fetchProductDetail = useCallback(async () => {
     if (!detailId) return;
+
     setDataDetail(prev => ({...prev, loading: true}));
+
     try {
       const response = await productServices.getProductDetail({
         productId: detailId,
